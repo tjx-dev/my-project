@@ -1,0 +1,11 @@
+attempts=0
+while attempts < 3:
+    password=input("请输入密码")
+    if password =="":
+        print("密码不能为空，请重新输入")
+        continue
+    if password =="123123":
+        print("登入成功")
+        break
+    attempts+=1
+    print(f'密码错误,还有{3-attempts}次机会')
