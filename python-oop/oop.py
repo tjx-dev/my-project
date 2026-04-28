@@ -63,6 +63,7 @@
 #以双下划线定义的特殊方法，__init__
 #__init__  初始化  __str__  表示字符串
 #__eq__ 俩个对象是否相等   le<=,lt<,gt>,ge>=
+#删除对象 __del__   手动删或者执行结束，都会调用这个函数
 
 # class Car:
 #     def __init__(self,c_name,c_color,c_price):
@@ -122,20 +123,26 @@
 # zs=Student("张三",85)
 # ls=Student("李四",55)
 # print(zs.is_pass())
+
+
+#封装  把属性和方法封装一起，仅给别人去访问 
+#继承  孩子给老爹的东西
+#多态  同样一个函数在不同场景表现不同形态
+
+#继承(类的继承)
+#class  子类（父类）
+    #pass
+class Master:
+    def __init__(self):
+        self.jb='[煎饼方法]'
+    def make(self):
+        print(f"用{self.jb}制作")
     
-
-
-
-
-
-
-
-
-
-
-
-
-
+class Student(Master):
+    pass
+c=Student()
+c.make()
+   
 
 
 
