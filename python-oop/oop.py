@@ -132,23 +132,47 @@
 #继承(类的继承)
 #class  子类（父类）
     #pass
-class Master:
-    def __init__(self):
-        self.jb='[煎饼方法]'
-    def make(self):
-        print(f"用{self.jb}制作")
+#单继承
+# class Master:
+#     def __init__(self):
+#         self.jb='[煎饼方法]'
+#     def make(self):
+#         print(f"用{self.jb}制作")
     
-class Student(Master):
-    pass
-c=Student()
-c.make()
+# class Student(Master):
+#     pass
+# c=Student()
+# c.make()
    
+#多继承
+#class 父类1：
+    #pass
+#class 父类2：
+#   pass
+#class  子类（父类1，父类2）：（就近原则）
+    #pass
 
+#子类调用父类的方法
+#1.父类名.父类方法名（self）（父类全部）
+#2.super().父类函数名（）（只能是最近的父类） 单继承
 
-
-
-
-
+#类方法和静态方法
+#类方法@classmethod--必须使用装饰器，第一个表示类对象
+# class Student():
+#     school='黑马'
+#     @classmethod
+#     def show1(cls):
+#         print(f"cls:{cls}")
+#         print('类方法')
+#     @staticmethod
+#     def show2():
+#         print('静态方法')
+# if __name__=='__main__':
+#     a=Student()
+#     a.show1()
+#     print('-'*23)
+#     a.show2()
+#静态方法@staticmethod
 
 
 
