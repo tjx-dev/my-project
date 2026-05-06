@@ -365,3 +365,35 @@
 # def funa(n1,n2,n3):
 #     return n1,n2,n3
 # print(funa('mjc','tjx','aa'))
+
+#文件打开
+#"a":追加写，没有就创建,
+# "w"：覆盖写，没有就创建,"r"；只读不写，没有就报错,"x":创建写，没有就报错,
+# with open (文件，读取方式,encoding='utf-8') as f：
+#   print(f.readline())
+#readline 读取一行 read 读取文档全部 readlines 读取所有行
+
+#文件写入
+#print(f.write())
+#除去换行符还有空白
+#f.strip()
+#文件处理
+
+ #结构化数据
+import json 
+data={"name":"小米","score":98}
+with open("file","w",encoding="utf-8") as f:
+    json.dump(data,f)
+with open("file",'r',encoding="utf-8") as f:
+    loaded=json.load(f)
+print(loaded)
+
+#处理文件
+a=[]
+with open("file","r",encoding="utf-8") as f:
+    for x in f:
+        clean=x.strip()
+    if clean != "" :
+        a.append(clean)
+print(a)
+
