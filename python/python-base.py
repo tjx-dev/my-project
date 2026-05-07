@@ -380,20 +380,20 @@
 #文件处理
 
  #结构化数据
-import json 
-data={"name":"小米","score":98}
-with open("file","w",encoding="utf-8") as f:
-    json.dump(data,f)
-with open("file",'r',encoding="utf-8") as f:
-    loaded=json.load(f)
-print(loaded)
+# import json 
+# data={"name":"小米","score":98}
+# with open("file","w",encoding="utf-8") as f:
+#     json.dump(data,f)
+# with open("file",'r',encoding="utf-8") as f:
+#     loaded=json.load(f)
+# print(loaded)
 
-#处理文件
-a=[]
-with open("file","r",encoding="utf-8") as f:
-    for x in f:
-        clean=x.strip()
-    if clean != "" :
-        a.append(clean)
-print(a)
+# #处理文件
+# a=[]
+# with open("file","r",encoding="utf-8") as f:
+#     for x in f:
+#         clean=x.strip()
+#     if clean != "" :
+#         a.append(clean)
+# print(a)
 
