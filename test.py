@@ -79,12 +79,59 @@
 # print(基础分)
 
 #第七题
-students=[]
-with open("scores.txt","r",encoding="utf-8") as f:
-    for x in f:
-        x=x.strip()
-        if x=="":
-            continue
-        name,score = x.split(",") #根据逗号分开
-        students.append((name,score))
-print(students)
+# students=[]
+# with open("scores.txt","r",encoding="utf-8") as f:
+#     for x in f:
+#         x=x.strip()
+#         if x=="":
+#             continue
+#         name,score = x.split(",") #根据逗号分开
+#         students.append((name,score))
+# print(students)
+
+# grades = [
+#     {"name": "张三", "math": 90, "english": 85},
+#     {"name": "李四", "math": 78, "english": 92},
+#     {"name": "王五", "math": 88, "english": 88}
+# ]
+# with open("report.txt","w",encoding="utf-8") as f:
+#     f.write(f"{'姓名':<4} {'数学':>4} {'英语':>4} {'总分':>4} {'平均分':>6}\n")
+#     for i in grades:
+#         total=i['math']+i['english']
+#         arg=total/2
+#         f.write(f"{i['name']:<4}  {i['math']:>4}  {i['english']:>4}    {total:>4}    {arg:>6.1f}\n")
+
+#第八题
+# def safe(a,b):
+#     try:
+#        num= a/b
+#     except ZeroDivisionError :
+#         print('除数不能为0')
+#     except TypeError:
+#         print('请输入数字')
+#     else:
+#         print(f"{num:.2f}")
+#     finally:
+#         print("over")
+
+# safe(9,0)
+# safe('a',2)
+
+#第九题
+class TooLongError(Exception):
+    """字符串太长"""
+    pass
+def check(s):
+    if len(s)>10:
+        raise TooLongError('字符串太长')
+    if s!=str(s):#用isinstance(s,str) 表示是否是字符串
+        raise TypeError("必须是字符串")
+    print(s)
+for item in ['hello',123,'qwertyuoplkjhgfds']:
+    try :
+        check(item)
+    except TooLongError as e:
+        print('字符串太长',e)
+    except TypeError as e:
+        print('不是字符串',e)
+
