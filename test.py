@@ -118,20 +118,75 @@
 # safe('a',2)
 
 #第九题
-class TooLongError(Exception):
-    """字符串太长"""
-    pass
-def check(s):
-    if len(s)>10:
-        raise TooLongError('字符串太长')
-    if s!=str(s):#用isinstance(s,str) 表示是否是字符串
-        raise TypeError("必须是字符串")
-    print(s)
-for item in ['hello',123,'qwertyuoplkjhgfds']:
-    try :
-        check(item)
-    except TooLongError as e:
-        print('字符串太长',e)
-    except TypeError as e:
-        print('不是字符串',e)
+# class TooLongError(Exception):
+#     """字符串太长"""
+#     pass
+# def check(s):
+#     if len(s)>10:
+#         raise TooLongError('字符串太长')
+#     if s!=str(s):#用isinstance(s,str) 表示是否是字符串
+#         raise TypeError("必须是字符串")
+#     print(s)
+# for item in ['hello',123,'qwertyuoplkjhgfds']:
+#     try :
+#         check(item)
+#     except TooLongError as e:
+#         print('字符串太长',e)
+#     except TypeError as e:
+#         print('不是字符串',e)
+
+# for i in range(1,10):
+#     for j in range(1,i+1):
+#         print(f"{j}*{i}={j*i}",end="\t")
+#     print()
+
+
+#第十题
+# class Book:
+#     def __init__(self,title,author,pages):
+#         self.title=title
+#         self.author=author
+#         self.pages=pages
+#     def info(self):
+#         return f"【{self.title}】by {self.author}"
+#     def __str__(self):
+#         return f"【{self.title}】共{self.pages}页"
+# book1=Book('三体','刘慈欣',300)
+# print(book1.info())
+# print(book1)
+# book2=Book('活着','余华',200)
+# print(book2.info())
+# print(book2)
+
+# class Student:
+#     def __init__(self,name,score):
+#         self.name=name
+#         self.score=score
+#     @property
+#     def score(self): 
+#         return self._score
+#     @score.setter
+#     def score(self,value):
+#         if value<0 or value>100:
+#             raise ValueError("分数必须在0~100")
+#         if not isinstance(value,int):
+#             raise TypeError("分数必须是整数")
+#         self._score=value
+#     def __str__(self):
+#         return f"{self.name}:{self.score}分"
+# c1=Student('小明',85)
+# print(c1.score)
+# print(c1)
+# try:
+#     c2=Student('小黑',105)
+# except (ValueError,TypeError) as e:
+#     print(e)
+
+
+
+
+
+
+
+
 
