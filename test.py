@@ -182,11 +182,42 @@
 # except (ValueError,TypeError) as e:
 #     print(e)
 
+#第十一题
+# class Student:
+#     def __init__(self,name,score):
+#         self.name=name
+#         self.score=score
+    
+#     @property
+#     def score(self):
+#         return self._score
+#     @score.setter
+#     def score(self,value):
+#         if value<0 or value>100:
+#             raise ValueError('必须是0~100')
+#         self._score=value
+#     def __str__(self):
+#         return f"{self.name}:{self.score}分"
+    
+#     @classmethod
+#     def from_dict(cls,d):
+#        return cls(d["name"],d["score"])
+    
+# s=Student.from_dict({"name":"小红","score":"92"})
+# print(s)
 
-
-
-
-
-
-
-
+class Amimal:
+    def __init__(self,name):
+        self.name=name
+    def make_sound(self):
+        print('某种动物在叫')
+class Dog(Amimal):
+    def __init__(self, name):
+        super().__init__(name)
+    def make_sound(self):
+        print('汪汪')
+def animal_sound(a):
+    a.make_sound()
+if __name__=="__main__":
+    dog=Dog('狗')
+    animal_sound(dog)
