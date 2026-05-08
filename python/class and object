@@ -14,6 +14,7 @@
 # print(c1.__dict__)
 # print(c1.color)
 
+#__init__ 初始化，将初始数据变成对象
 #类的外面叫做函数，在类的里面叫做方法
 # class 类名:
 #     def __init__(self,参数列表):
