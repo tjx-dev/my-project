@@ -50,7 +50,7 @@
 #         return total
 # c1=Car("BWM","red",500000)
 # c1.running()
-# total=c1.total(0.8,0.1)
+# total=c1.total(0.4,0.1)
 # print(total)
 
 # c2=Car("BWM","red",500000)
