@@ -1,20 +1,85 @@
-import os 
-from  openai import OpenAI
+# import os 
+# from  openai import OpenAI
 
+# client=OpenAI(
+#     api_key=os.environ.get('DEEPSEEK_API_KEY'),
+#     base_url="https://api.deepseek.com"
+# )
+
+# response=client.chat.completions.create(
+#     model="deepseek-v4-pro",
+#     messages=[
+#         {"role":"system","content":"你是可爱的助手，你的名字是小祥，请用可爱的语气和用户聊天,并且不会说废话"},
+#         {"role":"user","content":"父亲节什么时候"}],
+#     stream=True,
+#     reasoning_effort="high" ,
+#     extra_body={"thinking":{"type":"enabled"}}
+# )
+# # print(response.chioce[0].message.content)
+# for i in response:
+#     content=i.choices[0].delta.content
+#     if content is not None:
+#         print(
+#             content,
+#             end=" ",
+#             flush=True   #立刻刷新缓冲区
+#         )
+
+
+
+
+#function calling
+from openai import OpenAI
+import os,json
 client=OpenAI(
-    api_key=os.environ.get('DEEPSEEK_API_KEY'),
+    api_key=os.environ.get("DEEPSEEK_API_KEY"),
     base_url="https://api.deepseek.com"
 )
+tools=[
+    {
+        "type":"function",
+        "function":{
+            "name":"get_weather",
+            "description":"获得指定城市的天气情况",
+            "parameters":{
+                "type":"object",
+                "property":{
+                    "city":{"type":"string",
+                    "description":"城市名称"}
+                },
+                "required":["city"]
+            }
+        }
+    }
+]
+messages=[{"role":"user","content":"合肥今天天气怎么样"}]
 
-response=client.chat.completion.create(
-    model="deepseek-v4-pro"
-    messages=
-        {"role":"system","content":"你是可爱的助手，你的名字是小祥，请用可爱的语气和用户聊天"},
-        {"role":"user","content":"你是谁"}
-    stream=False
-    reasoning_effort="high"
-    extra_body={"thinking":{"type":"enabled"}}
+response=client.chat.completions.create(
+    model="deepseek-v4-pro",
+    messages=messages,
+    tools=tools,
+    tool_choice="auto"
 )
-print(response.chioce[0].message.content)
+msg=response.choices[0].message
+if msg.tool_calls:
+    tool_call=msg.tool_calls[0]
+    func_name=tool_call.function.name
+    args=json.loads(tool_call.function.arguments)
 
+    if func_name=="get_weather":
+        result=f"给模型的结果是:{args["city"]}今天天气晴朗"
+
+    messages.append(msg)
+    messages.append({
+        "role":"tool",
+        "tool_call_id":tool_call.id,
+        "content":result
+    })
+    final_response=client.chat.completions.create(
+        model="deepseek-v4-pro",
+        messages=messages
+    )
+    print(final_response.choices[0].message.content)
+else:
+    print("模型没有调用工具",msg.content)
 
