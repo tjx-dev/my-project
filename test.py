@@ -206,18 +206,73 @@
 # s=Student.from_dict({"name":"小红","score":"92"})
 # print(s)
 
-class Amimal:
-    def __init__(self,name):
-        self.name=name
-    def make_sound(self):
-        print('某种动物在叫')
-class Dog(Amimal):
-    def __init__(self, name):
-        super().__init__(name)
-    def make_sound(self):
-        print('汪汪')
-def animal_sound(a):
-    a.make_sound()
-if __name__=="__main__":
-    dog=Dog('狗')
-    animal_sound(dog)
+# class Amimal:
+#     def __init__(self,name):
+#         self.name=name
+#     def make_sound(self):
+#         print('某种动物在叫')
+# class Dog(Amimal):
+#     def __init__(self, name):
+#         super().__init__(name)
+#     def make_sound(self):
+#         print('汪汪')
+# def animal_sound(a):
+#     a.make_sound()
+# if __name__=="__main__":
+#     dog=Dog('狗')
+#     animal_sound(dog)
+
+from openai import OpenAI
+import os,json
+client=OpenAI(
+    api_key=os.environ.get('DEEPSEEK_API_KEY'),
+    base_url="https://api.deepseek.com"
+)
+tools=[
+    {
+        "type":"function",
+        "function":{
+            "name":"get_weather",
+            "description":"获得指定城市的天气情况",
+            "parameters":{
+                "type":"object",
+                "property":{
+                    "city":{"type":"string",
+                    "description":"城市名称"}
+                },
+                "required":["city"]
+            }
+        }
+    }
+]
+messages=[{"role":"uesr","content":"合肥今天天气怎么样"}]
+
+response=client.chat.completions.create(
+    model="deepseek-v4-pro",
+    messages=messages,
+    tools=tools,
+    tool_choice='auto'
+)
+msg=response.choices[0].message
+if msg.tool_calls:
+    tool_call=msg.tool_call[0]
+    func_name=tool_call.function.name
+    args=json.loads(tool_call.function.arguments)
+
+    if func_name=="get_weather":
+        result=f"给模型的结果是:{args["city"]}今天天气晴朗"
+
+    messages.append(msg)
+    messages.append({
+        "role":"tool",
+        "tool_call_id":tool_call.id,
+        "content":result
+    })
+    final_response=client.chat.completions.create(
+        model="deepseek-v4-pro",
+        messages=messages
+    )
+    print(final_response.choices[0].message.content)
+else:
+    print("模型没有调用工具",msg.content)
+
