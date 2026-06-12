@@ -222,57 +222,87 @@
 #     dog=Dog('狗')
 #     animal_sound(dog)
 
-from openai import OpenAI
-import os,json
+
+
+
+
+# from openai import OpenAI
+# import os,json
+# client=OpenAI(
+#     api_key=os.environ.get('DEEPSEEK_API_KEY'),
+#     base_url="https://api.deepseek.com"
+# )
+# tools=[
+#     {
+#         "type":"function",
+#         "function":{
+#             "name":"get_weather",
+#             "description":"获得指定城市的天气情况",
+#             "parameters":{
+#                 "type":"object",
+#                 "property":{
+#                     "city":{"type":"string",
+#                     "description":"城市名称"}
+#                 },
+#                 "required":["city"]
+#             }
+#         }
+#     }
+# ]
+# messages=[{"role":"uesr","content":"合肥今天天气怎么样"}]
+
+# response=client.chat.completions.create(
+#     model="deepseek-v4-pro",
+#     messages=messages,
+#     tools=tools,
+#     tool_choice='auto'
+# )
+# msg=response.choices[0].message
+# if msg.tool_calls:
+#     tool_call=msg.tool_call[0]
+#     func_name=tool_call.function.name
+#     args=json.loads(tool_call.function.arguments)
+
+#     if func_name=="get_weather":
+#         result=f"给模型的结果是:{args["city"]}今天天气晴朗"
+
+#     messages.append(msg)
+#     messages.append({
+#         "role":"tool",
+#         "tool_call_id":tool_call.id,
+#         "content":result
+#     })
+#     final_response=client.chat.completions.create(
+#         model="deepseek-v4-pro",
+#         messages=messages
+#     )
+#     print(final_response.choices[0].message.content)
+# else:
+#     print("模型没有调用工具",msg.content)
+
+user="""
+请你在各招聘软件上，找出近几年ai大模型应用开发就业要求，需要本人学会哪些基础技能
+"""
+system="""
+你现在是各个招聘平台的百事通，你将严谨的从这些平台告诉我,使用中文
+"""
+
+import os 
+from  openai import OpenAI
+
 client=OpenAI(
     api_key=os.environ.get('DEEPSEEK_API_KEY'),
     base_url="https://api.deepseek.com"
 )
-tools=[
-    {
-        "type":"function",
-        "function":{
-            "name":"get_weather",
-            "description":"获得指定城市的天气情况",
-            "parameters":{
-                "type":"object",
-                "property":{
-                    "city":{"type":"string",
-                    "description":"城市名称"}
-                },
-                "required":["city"]
-            }
-        }
-    }
-]
-messages=[{"role":"uesr","content":"合肥今天天气怎么样"}]
 
 response=client.chat.completions.create(
     model="deepseek-v4-pro",
-    messages=messages,
-    tools=tools,
-    tool_choice='auto'
+    messages=[
+        {"role":"system","content":"system"},
+        {"role":"user","content":"user"}],
+    stream=False,
+    reasoning_effort="high",
+    extra_body={"thinking": {"type": "enabled"}}
 )
-msg=response.choices[0].message
-if msg.tool_calls:
-    tool_call=msg.tool_call[0]
-    func_name=tool_call.function.name
-    args=json.loads(tool_call.function.arguments)
-
-    if func_name=="get_weather":
-        result=f"给模型的结果是:{args["city"]}今天天气晴朗"
-
-    messages.append(msg)
-    messages.append({
-        "role":"tool",
-        "tool_call_id":tool_call.id,
-        "content":result
-    })
-    final_response=client.chat.completions.create(
-        model="deepseek-v4-pro",
-        messages=messages
-    )
-    print(final_response.choices[0].message.content)
-else:
-    print("模型没有调用工具",msg.content)
-
+print(response.choices[0].message.content)
+# 你现在是一位ai大模型应用开发有着多年经验的程序员,你将为我规划
