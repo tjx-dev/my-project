@@ -15,7 +15,7 @@
 #     reasoning_effort="high" ,
 #     extra_body={"thinking":{"type":"enabled"}}
 # )
-# # print(response.chioce[0].message.content)
+# # print(response.choice[0].message.content)
 # for i in response:
 #     content=i.choices[0].delta.content
 #     if content is not None:
