@@ -128,6 +128,7 @@ int main(void)
 
 
 //siftUp 插入、删除堆顶
+/*s
 #define maxsize 10 
 
 void shiftup(int a[],int i)
@@ -218,8 +219,163 @@ int main(void)
     }
 }
 
+*/
 
 
 
 
+//堆排序-建大顶堆 + 反复把堆顶最大元素搬到当前末尾   升序
 
+/*
+void shiftdown(int a[],int n,int i)
+{
+    while(1)
+    {
+        int largest=i;
+        int left=2*i+1;
+        int right=2*i+2;
+
+        if(left<n&&a[largest]<a[left]) 
+        largest=left;
+        if(right<n&&a[largest]<a[right])
+        largest=right;
+
+        if(largest==i)
+        break;
+
+        int temp=a[i];
+        a[i]=a[largest];
+        a[largest]=temp;
+
+        i=largest;
+    }
+}
+
+// 建大顶堆 (自底向上) 
+
+void maxheap(int a[],int n)
+{
+    for(int i=(n-1-1)/2;i>=0;i--)
+    {
+        shiftdown(a,n,i);
+    }
+}
+
+
+void heapsort(int a[],int n)
+{
+    maxheap(a,n);
+
+    for(int i=n-1;i>0;i--)
+    {
+        int tmp=a[i];
+        a[i]=a[0];
+        a[0]=tmp;
+        shiftdown(a,i,0);// 对新的堆顶下沉(end后面的已排好,不在堆内)
+    }
+}
+
+void print(int a[],int n)
+{
+    for(int i=0;i<n;i++)
+    {
+        printf("%d ",a[i]);
+    }
+}
+
+
+
+int main(void)
+{    
+#ifdef _WIN32
+    // 将控制台输入/输出代码页设置为 UTF-8，避免中文乱码
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+#endif
+    int a[]={4, 10, 3, 5, 1, 8, 7, 2, 9, 6};
+    int n = sizeof(a) / sizeof(a[0]);
+
+    printf("排序前: "); print(a, n);
+    heapsort(a, n);
+    printf("排序后: "); print(a, n);   // 期望升序
+    return 0;
+
+}
+*/
+
+
+
+
+//Top K（小顶堆维护前 K 大）
+/*
+//小顶堆
+void shiftdownmin(int a[],int n,int i)
+{
+     while (1) {
+        int smallest = i;
+        int l = 2 * i + 1, r = 2 * i + 2;
+        if (l < n && a[l] < a[smallest]) smallest = l;
+        if (r < n && a[r] < a[smallest]) smallest = r;
+        if (smallest == i) break;
+        int t = a[i]; a[i] = a[smallest]; a[smallest] = t;
+        i = smallest;
+    }
+}
+
+//topk
+void topk(int a[],int n,int heap[],int K)
+{
+    int size=0;
+    for(int i=0;i<n;i++)
+    {
+        if(size<K)
+    {
+        heap[size]=a[i];
+        // 上浮到正确位置
+        int j=size;
+
+        while(j>0)
+        {
+            int p=(j-1)/2;
+            if (heap[j] < heap[p]) 
+            {
+                int tmp = heap[j];
+                heap[j] = heap[p];
+                heap[p] = tmp;
+
+                j = p;
+            }else break;
+        }
+    
+        size++;
+    }else if (a[i] > heap[0]) 
+        {   // ② 堆已满, 且新数据比堆顶(最小门槛)大
+            heap[0] = a[i];            // 替换堆顶
+            shiftdownmin(heap, K, 0);   // 下沉恢复小顶堆
+        }
+        // 否则: 新数据 <= 堆顶, 连前K都排不进, 丢弃
+    }
+}
+
+
+
+int main(void) 
+{
+#ifdef _WIN32
+    // 将控制台输入/输出代码页设置为 UTF-8，避免中文乱码
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+#endif
+    int a[] = {3, 8, 1, 9, 4, 7, 2, 10, 5, 6};
+    int n = sizeof(a) / sizeof(a[0]);
+    int K = 3;                    // 找前 3 大
+    int heap[K];
+
+    topk(a, n, heap, K);
+
+    printf("数组中前 %d 大(无顺序): ", K);
+    for (int i = 0; i < K; i++) printf("%d ", heap[i]);
+    printf("\n");
+    return 0;
+}
+*/

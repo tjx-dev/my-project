@@ -1,5 +1,14 @@
 {
-    "python-envs.defaultEnvManager": "ms-python.python:conda",
-    "python-envs.defaultPackageManager": "ms-python.python:conda",
-    "python.REPL.enableREPLSmartSend": false
+    "code-runner.executorMap": {
+        "c": "cd $dir && C:\\msys64\\mingw64\\bin\\gcc.exe -g $fileName -o $fileNameWithoutExt.exe && $dir$fileNameWithoutExt.exe",
+        "python": "d:\\my-project\\my-project\\.venv\\Scripts\\python.exe -u"
+    },
+    "code-runner.runInTerminal": true,
+    "code-runner.saveFileBeforeRun": true,
+    "code-runner.clearPreviousOutput": true,
+    "python.defaultInterpreterPath": "d:\\my-project\\my-project\\.venv\\Scripts\\python.exe",
+    "files.exclude": {
+        "**/.vscode": false,
+        "**/.vscode/*.json": false
+    }
 }

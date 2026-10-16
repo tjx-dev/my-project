@@ -1,13 +1,3 @@
-//抽象数据类型ADT
-/*InitList(&L)       // 初始化空表
-DestroyList(&L)    // 销毁表
-ListLength(L)      // 返回表长
-GetElem(L, i, &e)  // 取第 i 个元素存入 e
-LocateElem(L, e)   // 查找第一个等于 e 的元素位置
-ListInsert(&L, i, e) // 在第 i 位置插入元素 e
-ListDelete(&L, i, &e) // 删除第 i 个元素并用 e 返回
-TraverseList(L) */   // 遍历输出
-
 
 //-----顺序表
 /*
@@ -56,7 +46,7 @@ int delete(stu *s,int i,int *e)
         return 0;
     }
     *e=s->name[i-1];
-    for(int j=i-1;j<s->len-1;j++)//将元素前移
+    for(int j=i-1;j<s->len-1;j++)//后半段将元素前移
     {
       s->name[j]=s->name[j+1];
     }
@@ -78,9 +68,9 @@ int insert(stu *s,int i,int e)
         printf("顺序表已经满了\n");
         return 0;
     }
-    for(int j=s->len;j>=i;j--)//数组插入，必须要从后往前移动元素
+    for(int j=s->len;j>=i;j--)//数组插入，后半段必须要往后移动元素
     {
-        s->name[j]=s->name[j-1];
+        s->name[j+1]=s->name[j];
     }
     s->name[i-1]=e;
     s->len++;
@@ -165,7 +155,7 @@ void head_insert(linklist L,int n)//n为插入的个数
         linklist p=(linklist)malloc(sizeof(LNode));
         scanf("%d",&p->data);
 
-        p->next=L->next;
+        p->next=L->next;                                                    
         L->next=p;
     }
         

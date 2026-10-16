@@ -1,0 +1,15 @@
+{
+    "code-runner.executorMap": {
+        "c": "cd /d \"$dir\" && C:\\msys64\\mingw64\\bin\\gcc.exe -g \"$fileName\" -o \"$fileNameWithoutExt.exe\" 2>&1 && Clear-Host && .\\$fileNameWithoutExt.exe"
+    },
+    "code-runner.clearPreviousOutput": true,
+    "code-runner.showExecutionMessage": false,
+    "code-runner.runInTerminal": true,
+    "code-runner.saveFileBeforeRun": true,
+    "code-runner.preserveFocus": true,
+    "code-runner.hideOutputPanel": false,
+    "terminal.integrated.scrollback": 1000,
+    "terminal.integrated.shellIntegration.enabled": false,
+    "terminal.integrated.shellIntegration.decorationsEnabled": "never",
+    "terminal.integrated.showExitAlert": false
+}

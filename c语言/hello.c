@@ -1199,9 +1199,9 @@ if (p1 == NULL)
 int main(){
     SetConsoleOutputCP(65001);
     int a = 5, b = 3;
-    printf("%d\n", a & b);   // 结果是 1
-    printf("%d\n", a | b);   // 结果是 7
-    printf("%d\n", a ^ b);   // 结果是 6
+    printf("%d\n", a & b);   // 结果是 1 相同为一，
+    printf("%d\n", a | b);   // 结果是 7 有一则以一
+    printf("%d\n", a ^ b);   // 结果是 6 相同为0
     printf("%d\n", ~a);
     return 0;
 }*/
