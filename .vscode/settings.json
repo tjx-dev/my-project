@@ -10,5 +10,8 @@
     "files.exclude": {
         "**/.vscode": false,
         "**/.vscode/*.json": false
+    },
+    "files.associations": {
+        "*.h": "cpp"
     }
 }

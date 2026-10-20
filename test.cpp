@@ -459,7 +459,7 @@ int main()
 
 */
 
-
+/*
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -503,19 +503,105 @@ int main()
 
 }
 
+*/
+
+/*
+#include <iostream>
+
+class MyArray
+{
+private:
+    int *data;
+    int n;
+
+public:
+    static int count;
+    MyArray(int size) :data(new int[size]),n(size)
+    {
+        for(int i=0;i<size;i++)
+        {
+            data[i]=0;
+        };
+        count++;
+    }
+//深拷贝
+    MyArray(const MyArray&other):data(new int[other.n]),n(other.n)
+    {
+        for(int i=0;i<other.n;i++)
+        {
+            data[i]=other.data[i];
+        };
+        count++;
+    }
+// operator=
+    MyArray&operator=(const MyArray&other)
+    {
+        if(this==&other) return *this;
+        delete[]data;
+        n=other.n;
+        data=new int[n];
+        for(int i=0;i<other.n;i++)
+        {
+            data[i]=other.data[i];
+        };
+        
+        return *this;
+
+    }
+    //析构函数
+    ~MyArray(){delete []data;count--;}
+
+    //静态函数
+    static int getcount(){return count;}
+    //友元函数
+    friend void audit(const MyArray& a);
+
+    int& operator[](int idx) { return data[idx]; } 
+    int get(int idx) const{return data[idx];};
+    void print() const{ 
+        for(int i=0;i<n;i++)
+        {
+            std::cout <<data[i] <<" ";
+        };
+    };
+};
+
+void audit(const MyArray&a)
+{
+    int s=0;
+    for(int i=0;i<a.n;i++)
+        {
+            std::cout <<a.data[i] <<" ";
+            ++s;
+        };
+    std::cout <<"元素个数=" <<s<<" ";
+};
+int MyArray::count=0;
 
 
-
-
-
-
-
-
-
-
-
-
-
+int main()
+{
+    MyArray a(3),b(2);
+    std::cout <<b.getcount()<<" ";
+    b=a;
+    b[1]=99;
+    std::cout <<a[1] <<" "<<b[1] <<" ";
+    MyArray c(a);
+    std::cout <<b.getcount()<<" ";
+    {
+        MyArray f(4);
+        std::cout <<b.getcount()<<" ";
+    }
+    std::cout <<b.getcount()<<" ";
+    audit(a);
+    const MyArray d = a;
+    d.print(); 
+    d.get(1);
+    c=b=a;
+    std::cout << MyArray::getcount() << "\n";
+    return 0;
+}
+*/
 
 
 
