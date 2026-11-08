@@ -1,0 +1,7 @@
+/build/
+/cmake-build-*/
+/.qtcreator/
+*.user
+/.local-mysql/
+/tools/*.csv
+/tools/reset-local-mysql-root.ps1
