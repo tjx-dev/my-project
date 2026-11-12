@@ -675,7 +675,7 @@ int main()
 
 */
 
-
+/*
 #include <iostream>
 #include <mutex>
 #include <thread>
@@ -714,11 +714,31 @@ int main()
     std::cout << "最终剩余: " << tickets << "\n";
     return 0;
 }
+*/
 
+#include <iostream>
+#include <new>
 
+void demo(bool s)
+{
+    try{
+        if(s){
+            throw std::bad_alloc();
+        }
+        int *p=new int(5);
+        std::cout <<"申请成功\n";
+        delete p;
+    }catch(const std::bad_alloc&){
+            std::cout <<"内存分配失败\n";
+        }
+}
 
-
-
+int main()
+{
+    demo(true);
+    demo(false);
+    return 0;    
+}
 
 
 
