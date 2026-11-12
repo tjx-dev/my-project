@@ -606,6 +606,557 @@ int main()
 
 
 
+/*
+#include <iostream>
+
+class Animal 
+{
+protected :
+    int age;
+public:
+//构造
+    Animal (int a) : age(a){std::cout << "Animal构造\n";};
+//纯虚函数
+    virtual void speak() const=0;
+//普通成员函数
+    void info() const{ std::cout <<"age=" <<age <<" ";}
+//虚析构函数
+    virtual ~Animal(){std::cout << "Animal析构\n";};
+
+};
+
+
+class Horse:virtual public Animal
+{
+public:
+    Horse(int a) :Animal(a){ std::cout << "Horse构造\n";}
+    void speak() const override{std::cout <<"嘶嘶\n";};
+    ~Horse() { std::cout << "Horse析构\n"; }
+};
+
+
+class Donkey : virtual public Animal
+{
+public:
+    Donkey(int b) :Animal(b){std::cout << "Donkey构造\n";}
+    void speak() const override{std::cout <<"昂昂\n";}
+    ~Donkey() { std::cout << "Donkey析构\n"; }
+};
+
+class Mule : public Horse, public Donkey
+{
+public:
+    Mule(int a) :Animal(a),Horse(a),Donkey(a){std::cout <<"Mule构造\n";}
+    void speak() const override{std::cout<<"骡叫\n";}
+
+};
+
+
+int main()
+{
+    //Animal x(1);  父类不能直接创建对象
+    Mule m(3);
+    Animal *zoo[]={new Horse(5),new Donkey(4),new Mule(3)};
+    for(auto &s:zoo)  
+    {
+        s->speak();
+        std::cout <<" ";
+    };
+    for(auto &n:zoo) 
+    {
+        delete n;
+
+    }
+    m.info(); 
+    Horse h(2); 
+    return 0;
+
+}
+
+*/
+
+
+#include <iostream>
+#include <mutex>
+#include <thread>
+#include <chrono>
+
+int tickets = 100;    // 总票数（共享）
+
+std::mutex
+g_mtx;//全局锁
+
+void sell(int windowID)
+{
+    
+    while(tickets>0)
+    {
+        std::lock_guard<std::mutex>
+    g(g_mtx);
+        if(tickets<=0) break;
+        std::this_thread::sleep_for(std::chrono::milliseconds(10)); 
+         // ② 收钱找零，10毫秒
+        tickets--;                           // ③ 出票
+        std::cout << "窗口" << windowID << " 卖出一张，剩余 "
+         << tickets << "\n";
+    }
+    std::cout << "窗口" << windowID << " 收工\n";
+}
+
+int main()
+{
+    std::thread t1(sell, 1);    // 函数 + 参数：窗口1
+    std::thread t2(sell, 2);
+    std::thread t3(sell, 3);
+    t1.join();                  // ★ 先全部创建，再统一 join（上次踩过的坑）
+    t2.join();
+    t3.join();
+    std::cout << "最终剩余: " << tickets << "\n";
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

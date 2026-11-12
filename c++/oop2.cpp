@@ -140,7 +140,7 @@ int main()
 
 
 //构造顺序  口诀：谁最派生，谁负责虚基类
-/*
+
 #include <iostream>
 
 class Animal 
@@ -184,7 +184,7 @@ int main()
     return 0;
 }
 
-*/
+
 
 
 
