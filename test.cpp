@@ -715,60 +715,120 @@ int main()
     return 0;
 }
 */
-
+/*
 #include <iostream>
 #include <new>
 
 void demo(bool s)
 {
     try{
-        if(s){
-            throw std::bad_alloc();
-        }
+        if(!s) {throw std::bad_alloc();}
+
         int *p=new int(5);
         std::cout <<"申请成功\n";
         delete p;
-    }catch(const std::bad_alloc&){
-            std::cout <<"内存分配失败\n";
-        }
+    }catch(const std::bad_alloc& e){
+        std::cout <<e.what() <<"内存分配失败\n";
+    }
 }
 
 int main()
 {
-    demo(true);
     demo(false);
-    return 0;    
+    demo(true); 
+    return 0;
 }
 
+*/
+
+/*
+#include <iostream>
+#include <memory>//unique/make_unique
+#include <utility>//std::move
+
+
+int main()
+{
+    std::unique_ptr<int>p=std::make_unique<int>(10);
+
+    std::cout <<"创建的值="<<*p <<std::endl;
+
+    std::unique_ptr <int>q=std::move(p);
+
+    std::cout <<"转移的值="<<*q <<std::endl;
+    return 0;
+}
+*/
+
+
+
+
+
+/*#include <iostream>  // 用于输出
+#include <memory>    // shared_ptr、make_shared
+
+struct Data {
+    int value = 10;  // 被管理对象中的数据
+
+    ~Data() {
+        std::cout << "Data 对象被销毁\n";  // 观察真正的销毁时机
+    }
+};
+
+int main() {
+    // 创建一个 Data 对象，并由 p 管理
+    std::shared_ptr<Data> p = std::make_shared<Data>();
+
+    std::cout << "计数：" << p.use_count() << '\n';  // 只有 p，计数为 1
+
+    {
+        // 复制智能指针，共享原来的 Data 对象
+        std::shared_ptr<Data> q = p;
+
+        std::cout << "计数：" << p.use_count() << '\n';  // p、q 共同拥有，计数为 2
+        std::cout << "数据：" << q->value << '\n';      // 通过 q 访问对象
+    }  // q 离开作用域，放弃所有权；p 还在，对象不会销毁
+
+    std::cout << "计数：" << p.use_count() << '\n';  // 只剩 p，计数为 1
+
+    p.reset();  // p 放弃所有权，最后一个拥有者退出，Data 对象被销毁
+
+    std::cout << "计数：" << p.use_count() << '\n';  // p 已为空，返回 0
+
+    return 0;
+}*/
 
 
 
 
 
 
+#include <iostream>
 
+class Student
+{
+private:
+    int age=10;
 
+public:
+    void shownomal(){
+        std::cout <<"可以调用普通函数\n";
+    }
+    void showreadonly() const{
+        std::cout <<"可以调用const函数\n";
+    }
+} ;
 
+int main()
+{
+    const Student s{};
+    Student b{};
+    b.shownomal();
+    b.showreadonly();
+    s.showreadonly();
+    return 0;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 
 
